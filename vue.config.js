@@ -25,7 +25,7 @@ module.exports = {
         host: '0.0.0.0',
         port: 3000,
         https: false,
-        hotOnly: false,
+        hotOnly: true,
         /* 使用代理 */
         proxy: {
             '/api': {
@@ -38,10 +38,14 @@ module.exports = {
     },
     /* Webpack相关配置 */
     configureWebpack: config => {
-        Object.assign(config.resolve.alias, {
-            '@components': path.resolve(__dirname, './src/components'),
-            '@assets': path.resolve(__dirname, './src/assets'),
-            '@utils': path.resolve(__dirname, './src/utils')
+        Object.assign(config, {
+            // 开发生产共同配置
+            resolve: {
+                alias: {
+                    '@assets': path.resolve(__dirname, './src/assets'),
+                    '@components': path.resolve(__dirname, './src/components')
+                } // 别名配置
+            }
         })
     },
     css: {
@@ -53,15 +57,22 @@ module.exports = {
         // 为预处理器的 loader 传递自定义选项。比如传递给
         // Css-loader 时，使用 `{ Css: { ... } }`。
         loaderOptions: {
-//             css: {
-//                 // 这里的选项会传递给 css-loader
-//             },
+            css: {
+                // data: '@import "./src/assets/css/app.css";'
+                // 这里的选项会传递给 css-loader
+            },
 //             postcss: {
 //                 // 这里的选项会传递给 postcss-loader
 //             },
             sass: {
-                data: '@import "@assets/css/app.scss"; '
+                // data: '@import "./src/assets/css/app.scss";'
             }
         }
-    }
+    },
+    chainWebpack:config => { 
+        // config.optimization.minimize(true);
+        // config.optimization.splitChunks({
+        //     chunks:'all'
+        // })
+    }
 }

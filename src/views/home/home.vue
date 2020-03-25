@@ -1,6 +1,8 @@
 <template>
-    <div>
-        首页
+    <div class="content">      
+        <van-button type="primary" class="btn">地方</van-button>
+        
+        
     </div>
 </template>
 <script>
@@ -20,4 +22,14 @@ export default {
         }
     },
 }
-</script>   
+</script>  
+<style lang="scss">
+    .content{
+        width: 100%;
+        height: 100%;
+        .btn{
+            width: 200px;
+            height: 40px;
+        }
+    }
+</style>
